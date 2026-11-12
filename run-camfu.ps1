@@ -1,4 +1,4 @@
-# ============================================================
+﻿# ============================================================
 # CamFu - Intelligent Surveillance System
 # Cross-Machine PowerShell Launcher
 # ============================================================
@@ -124,6 +124,9 @@ $modulePath = @(
 Write-Host "[OK] Launching CamFu Surveillance UI..."
 
 & java `
+    "-Xms256m" `
+    "-Xmx1024m" `
+    "-Dorg.bytedeco.javacpp.maxphysicalbytes=1G" `
     "-Djava.awt.headless=false" `
     "-Dprism.order=d3d" `
     "-Dprism.vsync=true" `

@@ -54,5 +54,5 @@ fi
 
 CP="target/classes:$(cat cp.txt)"
 
-java -cp "$CP" com.camfu.surveillance.Main
+java -Xms256m -Xmx1024m -Dorg.bytedeco.javacpp.maxphysicalbytes=1G -cp "$CP" com.camfu.surveillance.Main
 
