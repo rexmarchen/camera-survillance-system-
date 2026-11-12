@@ -55,3 +55,4 @@ fi
 CP="target/classes:$(cat cp.txt)"
 
 java -cp "$CP" com.camfu.surveillance.Main
+
