@@ -3,6 +3,7 @@
 *.jar
 *.war
 target/
+cp.txt
 .classpath
 .project
 .settings/

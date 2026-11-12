@@ -1,124 +1,51 @@
-# CamFu Quick Start Guide
+# 🚀 CamFu Quick Start Guide
 
-## Installation & Launch
-
-### Windows Users (Easiest)
-1. Open PowerShell in the project folder
-2. Run:
-   ```powershell
-   powershell -ExecutionPolicy Bypass -File "run-camfu.ps1"
-   ```
-
-### Requirements
-- **Java 21+** (or Java 11+ for older versions)
-- **Python 3.9+** (for AI frame analysis - optional)
-- **FFmpeg** (for RTSP streams - optional)
+**CamFu** is an intelligent CCTV surveillance application featuring real-time AI priority detection, crowd estimation, anomaly behavior detection, and dynamic grid auto-layout.
 
 ---
 
-## Minimal 3-Step Launch
+## ⚡ 1-Click Launch (Recommended)
 
-### Step 1: Build (if not already built)
+### **Windows**
+Simply double-click:
+```bat
+CamFu.bat
+```
+*Or in PowerShell:*
 ```powershell
-mvn clean package -DskipTests
+powershell -ExecutionPolicy Bypass -File .\run-camfu.ps1
 ```
 
-### Step 2: Launch CamFu
-```powershell
-powershell -ExecutionPolicy Bypass -File "run-camfu.ps1"
-```
-
-### Step 3: View Camera Feeds
-- Application window opens with live feed grid display
-- Cameras stream at smooth frame rates
-- Built-in OpenCV, DirectShow, MJPEG & RTSP grabbers (no VLC installation required)
-- Automated priority scoring based on motion, crowd & anomaly detection
-
----
-
-### Optional: Stream via VLC (if desired)
+### **Linux / macOS**
 ```bash
-vlc output.mp4 --sout "#http{mux=ts,dst=:8080/stream.m3u8}" --loop
-```
-
-### Step 4: Watch in Browser
-Open: **http://localhost:8080/stream.m3u8**
-
----
-
-## Common Commands
-
-### Twitch Streaming
-```bash
-vlc input.mp4 --sout "#rtmp{dst=live-sjc.twitch.tv/app/YOUR_STREAM_KEY}" --loop
-```
-
-### Local Network Camera
-```bash
-vlc output.mp4 --sout "#http{mux=m3u8,dst=:9000/stream.m3u8}"
-```
-Access from any computer: `http://<your_ip>:9000/stream.m3u8`
-
-### High-Quality Stream
-```bash
-vlc input.mp4 --sout ="#transcode{vcodec=h264,vb=8000,acodec=aac,ab=256}:http{mux=ts,dst=:8080/stream.m3u8}" --loop
+chmod +x run-camfu.sh
+./run-camfu.sh
 ```
 
 ---
 
-## Detailed Documentation
-See [VLC_STREAMING_GUIDE.md](VLC_STREAMING_GUIDE.md) for advanced options, troubleshooting, and best practices.
+## 📋 Prerequisites
+Only two standard runtimes are required:
+1. **Java 21+** (from [Adoptium Temurin](https://adoptium.net/) or [Oracle](https://www.oracle.com/java/technologies/downloads/))
+2. **Python 3.9+** (from [python.org](https://www.python.org/downloads/))
+
+> **Note:** You do **not** need to install Maven, MySQL, or VLC manually:
+> - **Maven Wrapper (`mvnw.cmd` / `mvnw`)** is included and handles dependencies automatically.
+> - **Embedded SQLite (`camfu.db`)** is built-in; MySQL is optional.
+> - **Python packages** (`opencv-python`, `flask`, `flask-cors`, `pyyaml`, `requests`) are automatically installed on first run if missing.
 
 ---
 
-## Project Structure
-```
-CamFu/
-├── src/                          # Source code
-│   ├── main/java/...             # Java classes
-│   └── test/java/...             # Tests
-├── target/
-│   └── CamFu.jar                 # Compiled JAR (948 MB)
-├── pom.xml                       # Maven configuration
-├── RUN_CAMFU_WITH_VLC.bat        # Windows launcher
-├── run_camfu_with_vlc.sh         # Unix/Linux launcher
-├── VLC_STREAMING_GUIDE.md        # Complete guide
-└── QUICK_START.md                # This file
-```
+## 🌐 Live AI Dashboard
+While CamFu is running, you can also view live analytics in your web browser:
+- **Web Dashboard**: [http://localhost:5000](http://localhost:5000)
+- **Health Check**: [http://localhost:5000/health](http://localhost:5000/health)
+- **Live Scores API**: [http://localhost:5000/api/scores](http://localhost:5000/api/scores)
 
 ---
 
-## Troubleshooting
-
-### Java Not Found
-```
-Windows: Download Java from https://www.oracle.com/java/technologies/downloads/
-macOS: brew install java11
-Linux: sudo apt-get install openjdk-11-jdk
-```
-
-### VLC Not Found
-```
-Windows: Download from https://www.videolan.org/vlc/
-macOS: brew install vlc
-Linux: sudo apt-get install vlc
-```
-
-### Port Already in Use
-Change port in VLC command:
-```bash
-vlc input.mp4 --sout "#http{mux=ts,dst=:8888/stream.m3u8}"
-# Then access: http://localhost:8888/stream.m3u8
-```
-
----
-
-## Support & Resources
-- **CamFu Source**: Java/Spring Boot application
-- **VLC Docs**: https://www.videolan.org/doc/
-- **H.264 Encoding**: https://en.wikipedia.org/wiki/Advanced_Video_Coding
-- **HTTP Live Streaming**: https://tools.ietf.org/html/rfc8216
-
----
-
-**Ready to stream!** 🚀
+## 🎯 Features
+- **Dynamic Smart Grid**: Highest-activity camera automatically promotes to a large **⭐ PRIORITY** hero tile. Idle feeds are dimmed.
+- **Motion & Crowd Detection**: Real-time OpenCV MOG2 background subtraction with contour filtering.
+- **Anomaly Detection**: Flags sudden speed surges, panic, or chaos with **🔴 ALERT** tags.
+- **Automatic Recording**: Meaningful events are automatically recorded to the `recordings/` directory.
